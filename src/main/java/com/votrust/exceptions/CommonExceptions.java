@@ -1,4 +1,4 @@
-package com.votrust.exception;
+package com.votrust.exceptions;
 
 public class CommonExceptions {
 

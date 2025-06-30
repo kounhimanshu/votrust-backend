@@ -2,8 +2,10 @@ package com.votrust.service;
 
 
 import com.votrust.dto.PageDTO;
-import com.votrust.exception.CommonExceptions;
+import com.votrust.exceptions.CommonExceptions;
+import lombok.Data;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,6 +17,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+@Data
 public class BasicService<E, D> {
 
     private final Class<E> entityType;
@@ -23,8 +27,12 @@ public class BasicService<E, D> {
     protected int defaultPage;
     //@Value("${page.default-size}")
     protected int defaultSize;
+
+    @Autowired
     private JpaRepository<E, Integer> basicRepository;
-    private ModelMapper modelMapper;
+
+    @Autowired
+    protected ModelMapper modelMapper;
 
 
     public BasicService(Class<E> entityType, Class<D> dtoType) {
@@ -88,15 +96,10 @@ public class BasicService<E, D> {
     }
 
     public E save(E e) {
-        System.out.println("20A");
-        System.out.println("E ::" + e);
         try {
-            System.out.println("20B");
             E entity = basicRepository.saveAndFlush(e);
-            System.out.println("20C");
             return entity;
         } catch (DataIntegrityViolationException ex) {
-            System.out.println("20D");
             throw new CommonExceptions.ResourceAlreadyExistException("RESOURCE_EXIST_MESSAGE");
         }
     }
