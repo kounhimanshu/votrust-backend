@@ -2,10 +2,13 @@ package com.votrust.service;
 
 import com.votrust.dto.UserDTO;
 import com.votrust.entity.User;
+import com.votrust.repositories.UserRepository;
 import com.votrust.utils.RSAUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.security.KeyPair;
@@ -16,8 +19,8 @@ import java.security.KeyPair;
 @Slf4j
 public class UserService extends BasicService<User, UserDTO> {
 
-    public UserService() {
-        super(User.class, UserDTO.class);
+    public UserService(UserRepository userRepository) {
+        super(User.class, UserDTO.class, userRepository);
     }
 
     public UserDTO register(UserDTO userDTO) throws Exception {

@@ -6,6 +6,7 @@ import com.votrust.repositories.UserRepository;
 import com.votrust.response.ApiResponse;
 import com.votrust.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController extends BaseController {
 
     private final UserRepository userRepository;
@@ -25,6 +27,7 @@ public class AuthController extends BaseController {
 
     @PostMapping("/login")
     public ApiResponse login(@RequestBody LoginDTO loginDTO) {
+        log.info("AuthController.login()");
         User user = userRepository.findByUsername(loginDTO.getUsername());
 
         if (Objects.isNull(user) || !user.getPassword().equals(loginDTO.getPassword())) {

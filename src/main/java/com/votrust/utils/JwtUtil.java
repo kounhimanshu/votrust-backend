@@ -9,9 +9,10 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "votrust-secure-key";
+    private final String SECRET_KEY = "my-super-secure-key-for-votrust-backend-auth@123";
 
     public String generateToken(String username) {
+
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())

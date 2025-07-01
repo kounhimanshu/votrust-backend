@@ -23,21 +23,20 @@ public class BasicService<E, D> {
 
     private final Class<E> entityType;
     private final Class<D> dtoType;
+    private final JpaRepository<E, Long> basicRepository;
     //@Value("${page.default-number}")
     protected int defaultPage;
     //@Value("${page.default-size}")
     protected int defaultSize;
 
     @Autowired
-    private JpaRepository<E, Integer> basicRepository;
-
-    @Autowired
     protected ModelMapper modelMapper;
 
 
-    public BasicService(Class<E> entityType, Class<D> dtoType) {
+    public BasicService(Class<E> entityType, Class<D> dtoType, JpaRepository<E, Long> basicRepository) {
         this.entityType = entityType;
         this.dtoType = dtoType;
+        this.basicRepository = basicRepository;
     }
 
     public D saveOrUpdate(D d) {
@@ -50,11 +49,11 @@ public class BasicService<E, D> {
     }
 
 
-    public D get(Integer id) {
+    public D get(Long id) {
         return entityToDto(getEntity(id));
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         basicRepository.delete(dtoToEntity(get(id)));
     }
 
@@ -86,7 +85,7 @@ public class BasicService<E, D> {
         return list.stream().map(d -> dtoToEntity(d)).collect(Collectors.toList());
     }
 
-    public E getEntity(Integer id) {
+    public E getEntity(Long id) {
         Optional<E> t = basicRepository.findById(id);
         if (t.isPresent()) {
             return t.get();

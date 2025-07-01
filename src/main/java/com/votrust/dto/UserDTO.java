@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 public class UserDTO extends BaseDTO{
 
     private String username;
-    @JsonIgnore
     private String password;
     private String email;
     private String name;
@@ -31,6 +30,7 @@ public class UserDTO extends BaseDTO{
         | 5️⃣      | 📊 **Vote Counting + Result**          | Show live results by reading blockchain          |
         | 6️⃣      | 🔍 **Blockchain Validation + Audit**   | Detect tampering, verify integrity               |
 */
+
 
 /** //todo
  * | Task No | Task                                              | Status                    |
