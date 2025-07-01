@@ -2,12 +2,10 @@ package com.votrust.controllers;
 
 import com.votrust.dto.CandidateDTO;
 import com.votrust.dto.ElectionDTO;
-import com.votrust.entity.BaseEntity;
 import com.votrust.response.ApiResponse;
 import com.votrust.service.CandidateService;
 import com.votrust.service.ElectionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,11 +27,11 @@ public class ElectionController extends BaseController {
     @PostMapping("/{electionId}/candidates")
     public ApiResponse addCandidate(@PathVariable Long electionId, @RequestBody CandidateDTO dto) {
         dto.setElectionId(electionId);
-        return candidateService.createCandidate(dto);
+        return null; //candidateService.createCandidate(dto);
     }
 
     @GetMapping("/{electionId}/candidates")
     public List<CandidateDTO> getCandidates(@PathVariable Long electionId) {
-        return candidateService.getCandidatesByElection(electionId);
+        return null; //candidateService.getCandidatesByElection(electionId);
     }
 }
